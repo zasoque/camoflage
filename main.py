@@ -1,8 +1,5 @@
-from os import mkdir
 import random
 from PIL import Image
-
-size = 256
 
 colors = [
     (0x46, 0x50, 0x46),
@@ -12,12 +9,8 @@ colors = [
     (0x4D, 0x5E, 0x56),
 ]
 
-seed_rate = 0.001
-mutation_rate = 0.07
-seed = 42
 
-
-def main():
+def main(seed=42, seed_rate=0.001, mutation_rate=0.07, size=256):
     random.seed(seed)
 
     board = [[0 for _ in range(size)] for _ in range(size)]
@@ -31,6 +24,7 @@ def main():
                 board[i][j] = random.randint(1, len(colors))
                 leaves.append((i, j))
 
+    pixels = 0
     while leaves:
         random.shuffle(leaves)
         new_leaves = []
@@ -43,7 +37,9 @@ def main():
                     else:
                         board[ni][nj] = board[i][j]
                     new_leaves.append((ni, nj))
+                    pixels += 1
         leaves = new_leaves
+        print(pixels / (size * size) * 100, "%")
 
     for i in range(size):
         for j in range(size):
@@ -54,4 +50,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main(size=1024)
