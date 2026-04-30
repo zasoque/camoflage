@@ -50,7 +50,6 @@ def main():
             if board[i][j] != 0:
                 image.putpixel((j, i), colors[board[i][j] - 1])
 
-    mkdir("output")
     image.save(f"output/output_{size}@{seed}.png")
 
 
